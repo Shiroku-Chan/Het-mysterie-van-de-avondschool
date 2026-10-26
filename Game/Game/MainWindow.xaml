@@ -68,6 +68,7 @@
                       Visibility="Collapsed"
                       HorizontalScrollBarVisibility="Hidden" 
                       VerticalScrollBarVisibility="Hidden" 
+                      CanContentScroll="True"
                       Focusable="False">
             <Canvas x:Name="GameCanvas" Background="#1E1E24" Focusable="True" />
         </ScrollViewer>

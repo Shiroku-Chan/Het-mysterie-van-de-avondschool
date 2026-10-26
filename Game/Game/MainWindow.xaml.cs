@@ -92,9 +92,20 @@ namespace Game
             UpdateMovement();
             UpdateAnimation();
 
-            double scrollX = _playerX - (GameScrollViewer.ActualWidth / 2) + (GameConfig.TileSize / 2);
-            double scrollY = _playerY - (GameScrollViewer.ActualHeight / 2) + (GameConfig.TileSize / 2);
+            // Wacht tot de juiste map grootte is gegeven.
+            if (GameScrollViewer.ActualWidth <= 0 ||
+                GameScrollViewer.ActualHeight <= 0)
+                return;
 
+            // Bepaal scroll offset nodig om de speler in het midden te zetten.
+            double scrollX = _playerX + (GameConfig.TileSize / 2.0) - (GameScrollViewer.ViewportWidth / 2.0);
+            double scrollY = _playerY + (GameConfig.TileSize / 2.0) - (GameScrollViewer.ViewportHeight / 2.0);
+
+            // zorg dat de camera niet Out Of Bounds gaat.
+            double maxScrollX = Math.Max(0, GameScrollViewer.ExtentWidth - GameScrollViewer.ViewportWidth);
+            double maxScrollY = Math.Max(0, GameScrollViewer.ExtentHeight - GameScrollViewer.ViewportHeight);
+
+            // En beweeg pas dan de camera.
             GameScrollViewer.ScrollToHorizontalOffset(scrollX);
             GameScrollViewer.ScrollToVerticalOffset(scrollY);
         }

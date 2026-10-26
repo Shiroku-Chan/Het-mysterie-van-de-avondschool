@@ -17,11 +17,16 @@ namespace Game.Services
         {
             _canvas.Children.Clear();
 
+            // Dit gedeelte bepaalt hoe groot de map is 'automatisch'. Zonder dit werkt het scrollen niet.
+            _canvas.Width = map.Width * GameConfig.TileSize;
+            _canvas.Height = map.Height * GameConfig.TileSize;
+
             for (int r = 0; r < map.Height; r++)
             {
                 for (int c = 0; c < map.Width; c++)
                 {
                     int tileId = map.Layout[r, c];
+
                     if (!map.TileRegistry.TryGetValue(tileId, out var tileType))
                         continue;
 
@@ -35,6 +40,7 @@ namespace Game.Services
 
                     Canvas.SetLeft(tile, c * GameConfig.TileSize);
                     Canvas.SetTop(tile, r * GameConfig.TileSize);
+
                     _canvas.Children.Add(tile);
                 }
             }
