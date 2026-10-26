@@ -93,8 +93,8 @@ namespace Game
             UpdateAnimation();
 
             // Wacht tot de juiste map grootte is gegeven.
-            if (GameScrollViewer.ActualWidth <= 0 ||
-                GameScrollViewer.ActualHeight <= 0)
+            if (GameScrollViewer.ViewportWidth <= 0 ||
+                GameScrollViewer.ViewportHeight <= 0)
                 return;
 
             // Bepaal scroll offset nodig om de speler in het midden te zetten.
@@ -108,6 +108,11 @@ namespace Game
             // En beweeg pas dan de camera.
             GameScrollViewer.ScrollToHorizontalOffset(scrollX);
             GameScrollViewer.ScrollToVerticalOffset(scrollY);
+
+            /// Gebruik Viewport in plaats van Actual.
+            /// Actual werkt op zich, en is hetzelfde als Viewport wanneer full-screen
+            /// Maar als het geminimized is dan neemt actual ook die bovenste balk mee.
+            /// Viewport doet dat niet. Al is dit maar een hele kleine verschil van zo'n 20 pixels.
         }
 
         private void UpdateMovement()
